@@ -44,9 +44,9 @@ figure(3); clf
 worldmap([23 55],[-130 -65]);
 geoshow('landareas.shp','FaceColor','white')
 hold on
-scatterm(latitudes,longitudes,5,Area,'filled')
+scatterm(latitudes,longitudes,5,pv_capacity,'filled')
 colorbar
-cmocean('tempo');
-ylabel(colorbar,'Area (km^2)')
-title('US Map of Photovoltaic Array Area in 2020')
+cmocean('algae');
+ylabel(colorbar,'Capacity (MW)')
+title('US Map of Photovoltaic Capacity in 2020')
 bordersm('continental us','k')
