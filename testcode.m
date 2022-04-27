@@ -16,6 +16,7 @@ latitudes = SolarResources(:,6);
 longitudes = SolarResources(:,7);
 irradiance = SolarResources(:,3);
 pv_capacity = SolarResources(:,4);
+capacity_factor = SolarResources(:,2);
 Area = SolarResources(:,5);
 
 latMonth = Monthly(:,4);
@@ -38,9 +39,11 @@ hold on
 scatterm(latitudes,longitudes,5,irradiance,'filled')
 colorbar
 cmocean('matter');
-ylabel(colorbar,'Global Horizontal Irradiance (GHI)')
+ylabel(colorbar,'Global Horizontal Irradiance (kWh/m^2/day)')
 title('US Map of Global Horizontal Irradiance in 2020')
 bordersm('continental us','k')
+ax = gca;
+ax.FontSize = 20;
 hold off
 %scatterm       1:10:end
 %capacity
@@ -54,6 +57,8 @@ cmocean('algae');
 ylabel(colorbar,'Capacity (MW)')
 title('US Map of Photovoltaic Capacity in 2020')
 bordersm('continental us','k')
+ax = gca;
+ax.FontSize = 20;
 %area
 figure(3); clf
 worldmap([23 55],[-130 -65]);
@@ -65,6 +70,8 @@ cmocean('tempo');
 ylabel(colorbar,'Area (km^2)')
 title('US Map of Photovoltaic Array Area in 2020')
 bordersm('continental us','k')
+ax = gca;
+ax.FontSize = 20;
 %JanDNI
 figure(4); clf
 worldmap([23 55],[-130 -65]);
@@ -74,9 +81,12 @@ hold on
 scatterm(latMonth,lonMonth,5,JanDNI,'filled')
 colorbar
 cmocean('matter');
-ylabel(colorbar,'DNI')
-title('US Map of Average Annual DNI in January')
+ylabel(colorbar,'Direct Normal Irradiance (kWh/m^2/day)')
+title('US Map of Average Annual Direct Normal Irradiance in January from 1998-2005')
 bordersm('continental us','k')
+ax = gca;
+ax.FontSize = 20;
+caxis([800,10000]);
 %JulyDNI
 figure(5); clf
 worldmap([23 55],[-130 -65]);
@@ -86,10 +96,25 @@ hold on
 scatterm(latMonth,lonMonth,5,JulyDNI,'filled')
 colorbar
 cmocean('matter');
-ylabel(colorbar,'DNI')
-title('US Map of Average Annual DNI in July')
+ylabel(colorbar,'Direct Normal Irradiance (kWh/m^2/day)')
+title('US Map of Average Annual Direct Normal Irradiance in July from 1998-2005')
 bordersm('continental us','k')
-
+ax = gca;
+ax.FontSize = 20;
+caxis([800,10000]);
+%capacity
+figure(7); clf
+worldmap([23 55],[-130 -65]);
+geoshow('landareas.shp','FaceColor','white')
+hold on
+scatterm(latitudes,longitudes,5,capacity_factor,'filled')
+colorbar
+cmocean('tempo');
+ylabel(colorbar,'Capacity Factor')
+title('US Map of Capacity Factor in 2020')
+bordersm('continental us','k')
+ax = gca;
+ax.FontSize = 20;
 %% 
 %Annual Dni
 figure(6); clf
@@ -100,7 +125,10 @@ hold on
 scatterm(latMonth,lonMonth,5,AnnDNI,'filled')
 colorbar
 cmocean('matter');
-ylabel(colorbar,'DNI')
-title('US Map of Average Annual DNI in ')
+ylabel(colorbar,'Direct Normal Irradiance (kWh/m^2/day)')
+title('US Map of Average Annual Direct Normal Irradiance from 1998-2005')
 bordersm('continental us','k')
+ax = gca;
+ax.FontSize = 20;
+caxis([800,10000]);
 
