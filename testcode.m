@@ -19,7 +19,7 @@ irradiance = SolarResources(:,3);
 pv_capacity = SolarResources(:,4);
 capacity_factor = SolarResources(:,2);
 Area = SolarResources(:,5);
-generation = pv_capacity.*capacity_factor;
+generation = (pv_capacity*24*365).*capacity_factor;
 latMonth = Monthly(:,4);
 lonMonth = Monthly(:,3);
 AnnDNI = Monthly(:,17);
@@ -140,7 +140,7 @@ hold on
 scatterm(latitudes,longitudes,5,generation,'filled')
 colorbar
 cmocean('algae');
-ylabel(colorbar,'Energy Generation (MW)')
+ylabel(colorbar,'Energy Generation (mWh)')
 title('US Map of Photovoltaic Energy Generation in 2020')
 bordersm('continental us','k')
 ax = gca;
