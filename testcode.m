@@ -1,4 +1,5 @@
 %% Accessing data
+%add your own path below
 addpath('C:\Users\tommy\Downloads\pv_data_2020.csv');
 addpath('C:\Users\tommy\Downloads');
 import bordersm.*
@@ -18,7 +19,7 @@ irradiance = SolarResources(:,3);
 pv_capacity = SolarResources(:,4);
 capacity_factor = SolarResources(:,2);
 Area = SolarResources(:,5);
-
+generation = pv_capacity.*capacity_factor;
 latMonth = Monthly(:,4);
 lonMonth = Monthly(:,3);
 AnnDNI = Monthly(:,17);
@@ -27,8 +28,8 @@ JulyDNI = Monthly(:,11);
 % latsround = 25:0.2:50;
 % %longsround = 
 %% Figures
-% s = shaperead('cb_2018_us_nation_20m.shx');
-% in = inpolygon(lonMonth,latMonth,s.X,s.Y);
+s = shaperead('cb_2018_us_nation_20m.shx');
+in = inpolygon(lonMonth,latMonth,s.X,s.Y);
 % comment these out and in when needed
 %irradiance
 figure(1); clf
@@ -131,4 +132,16 @@ bordersm('continental us','k')
 ax = gca;
 ax.FontSize = 20;
 caxis([800,10000]);
-
+%% generation
+figure(7); clf
+worldmap([23 55],[-130 -65]);
+geoshow('landareas.shp','FaceColor','white')
+hold on
+scatterm(latitudes,longitudes,5,generation,'filled')
+colorbar
+cmocean('algae');
+ylabel(colorbar,'Energy Generation (MW)')
+title('US Map of Photovoltaic Energy Generation in 2020')
+bordersm('continental us','k')
+ax = gca;
+ax.FontSize = 20;
