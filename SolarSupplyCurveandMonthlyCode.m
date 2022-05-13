@@ -15,7 +15,7 @@ filename = 'perezANN.csv';
 MonthlyDNI = readtable(filename);
 MonthlyDNI.FID=[];
 MonthlyDNI.gid=[];
-%% Creating variables
+%% Creating variables from datasets
 SolarResources = table2array(SolarResourcesData);
 Monthly = table2array(MonthlyDNI);
 latitudes = SolarResources(:,6);
@@ -24,18 +24,19 @@ irradiance = SolarResources(:,3);
 pv_capacity = SolarResources(:,4);
 capacity_factor = SolarResources(:,2);
 Area = SolarResources(:,5);
+%generation calculation
 generation = (pv_capacity*24*365).*capacity_factor;
 latMonth = Monthly(:,4);
 lonMonth = Monthly(:,3);
 AnnDNI = Monthly(:,17);
 JanDNI = Monthly(:,5);
 JulyDNI = Monthly(:,11);
-%% Figures
+%% Creating Figures
 s = shaperead('cb_2018_us_nation_20m.shx');
 in = inpolygon(lonMonth,latMonth,s.X,s.Y);
-% comment these out and in when needed, ignores data outside the
+% comment these out and in when needed, these lines ignore data outside the
 % continental us
-%irradiance
+%irradiance map
 figure(1); clf
 worldmap([23 55],[-130 -65]);
 geoshow('landareas.shp','FaceColor','white')
@@ -49,7 +50,7 @@ bordersm('continental us','k')
 ax = gca;
 ax.FontSize = 20;
 hold off
-%capacity
+%capacity map
 figure(2); clf
 worldmap([23 55],[-130 -65]);
 geoshow('landareas.shp','FaceColor','white')
@@ -62,7 +63,7 @@ title('US Map of Photovoltaic Capacity in 2020')
 bordersm('continental us','k')
 ax = gca;
 ax.FontSize = 20;
-%area
+%area map
 figure(3); clf
 worldmap([23 55],[-130 -65]);
 geoshow('landareas.shp','FaceColor','white')
@@ -75,7 +76,7 @@ title('US Map of Photovoltaic Array Area in 2020')
 bordersm('continental us','k')
 ax = gca;
 ax.FontSize = 20;
-%JanDNI
+%JanDNI map
 figure(4); clf
 worldmap([23 55],[-130 -65]);
 geoshow('landareas.shp','FaceColor','white')
@@ -90,7 +91,7 @@ bordersm('continental us','k')
 ax = gca;
 ax.FontSize = 20;
 caxis([800,10000]);
-%JulyDNI
+%JulyDNI map
 figure(5); clf
 worldmap([23 55],[-130 -65]);
 geoshow('landareas.shp','FaceColor','white')
@@ -105,7 +106,7 @@ bordersm('continental us','k')
 ax = gca;
 ax.FontSize = 20;
 caxis([800,10000]);
-%capacity
+%capacity map
 figure(7); clf
 worldmap([23 55],[-130 -65]);
 geoshow('landareas.shp','FaceColor','white')
@@ -118,7 +119,7 @@ title('US Map of Capacity Factor in 2020')
 bordersm('continental us','k')
 ax = gca;
 ax.FontSize = 20;
-%Annual Dni
+%Annual Dni map
 figure(6); clf
 worldmap([23 55],[-130 -65]);
 geoshow('landareas.shp','FaceColor','white')
@@ -133,7 +134,7 @@ bordersm('continental us','k')
 ax = gca;
 ax.FontSize = 20;
 caxis([800,10000]);
-% generation
+% generation map
 figure(7); clf
 worldmap([23 55],[-130 -65]);
 geoshow('landareas.shp','FaceColor','white')
